@@ -3,11 +3,11 @@
   <title>Xsupreme</title>
   
   <subtitle>学习新思想，争做新青年！</subtitle>
-  <link href="https://github.com/ZXsupreme/ZXsupreme.github.io/atom.xml" rel="self"/>
+  <link href="https://zxsupreme.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/ZXsupreme/ZXsupreme.github.io/"/>
+  <link href="https://zxsupreme.github.io/"/>
   <updated>2023-08-28T14:20:21.162Z</updated>
-  <id>https://github.com/ZXsupreme/ZXsupreme.github.io/</id>
+  <id>https://zxsupreme.github.io/</id>
   
   <author>
     <name>只想睡大觉</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://github.com/ZXsupreme/ZXsupreme.github.io/2023/08/28/hello-world/"/>
-    <id>https://github.com/ZXsupreme/ZXsupreme.github.io/2023/08/28/hello-world/</id>
+    <link href="https://zxsupreme.github.io/2023/08/28/hello-world/"/>
+    <id>https://zxsupreme.github.io/2023/08/28/hello-world/</id>
     <published>2023-08-28T14:21:48.525Z</published>
     <updated>2023-08-28T14:20:21.162Z</updated>
     
