@@ -4,13 +4,50 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2023/08/28/hello-world/"/>
-      <url>/2023/08/28/hello-world/</url>
+      <title>如何用hexo搭建个人博客？</title>
+      <link href="/2022/12/11/%E6%90%AD%E5%BB%BAHexo%E6%95%99%E7%A8%8B/"/>
+      <url>/2022/12/11/%E6%90%AD%E5%BB%BAHexo%E6%95%99%E7%A8%8B/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p>个人博客搭建成功！</p><p>这篇文章将会简单介绍如何从零搭建</p><p>[TOC]</p><h3 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h3><p><a href="https://nodejs.org/en">1.下载node.js</a></p><p>（这篇文章里有修改node.js缓存路径的教学 <a href="https://blog.csdn.net/weixin_52799373/article/details/123840137">文章链接</a> ，觉得C盘内存充足可忽略）</p><p><a href="https://git-scm.com/downloads">2.下载git</a></p><p>（傻瓜式安装即可）</p><p>检测是否下载成功，管理员运行cmd，依次输入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.node <span class="token parameter variable">-v</span><span class="token number">2</span>.npm -v（node自带）<span class="token number">2</span>.git <span class="token parameter variable">-v</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>（出现版本号即可）</p><p>[TOC]</p><h3 id="配置node-js环境和搭建git仓库"><a href="#配置node-js环境和搭建git仓库" class="headerlink" title="配置node.js环境和搭建git仓库"></a>配置node.js环境和搭建git仓库</h3><p><a href="https://blog.csdn.net/wushibo123/article/details/124619123">详细教程</a></p><p>至此，就成功搭建好基本的博客了，剩下的就是对博客的美化了。</p><p>[TOC]</p><h3 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h3><p><a href="https://blog.csdn.net/qq_44846853/article/details/104669460">详细教程</a></p><p>[TOC]</p><h3 id="主题美化"><a href="#主题美化" class="headerlink" title="主题美化"></a>主题美化</h3><p>1.寻找满意的主题 <a href="https://hexo.io/themes/">Hexo Themes</a></p><p>2.根据文档主题内容操作</p><p>3.查看本地内容（根目录git bash依次输入）</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.hexo clean<span class="token number">2</span>.hexo g<span class="token number">3</span>.hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>4.上传到git</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.hexo g<span class="token number">2</span>.hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>（和发布博客同理）</p>]]></content>
       
       
+      <categories>
+          
+          <category> 博客相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第一篇博客</title>
+      <link href="/2022/12/10/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2022/12/10/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<p>经过了大半天的折腾，终于用 Hexo +  GitHub 实现了一个个人博客了，感觉还是挺兴奋的，对于一个不善言辞的人来说，偶尔写写博客、发发牢骚是真的最正常不过，以后就可以更新一些get到的小知识和写写一些个人总结，顺便写一些注意事项来深刻提醒自己。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
       
     </entry>
     

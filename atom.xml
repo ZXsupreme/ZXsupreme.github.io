@@ -6,7 +6,7 @@
   <link href="https://zxsupreme.github.io/atom.xml" rel="self"/>
   
   <link href="https://zxsupreme.github.io/"/>
-  <updated>2023-08-28T14:20:21.162Z</updated>
+  <updated>2023-08-29T15:11:38.554Z</updated>
   <id>https://zxsupreme.github.io/</id>
   
   <author>
@@ -17,23 +17,55 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://zxsupreme.github.io/2023/08/28/hello-world/"/>
-    <id>https://zxsupreme.github.io/2023/08/28/hello-world/</id>
-    <published>2023-08-28T14:21:48.525Z</published>
-    <updated>2023-08-28T14:20:21.162Z</updated>
+    <title>如何用hexo搭建个人博客？</title>
+    <link href="https://zxsupreme.github.io/2022/12/11/%E6%90%AD%E5%BB%BAHexo%E6%95%99%E7%A8%8B/"/>
+    <id>https://zxsupreme.github.io/2022/12/11/%E6%90%AD%E5%BB%BAHexo%E6%95%99%E7%A8%8B/</id>
+    <published>2022-12-11T14:10:28.000Z</published>
+    <updated>2023-08-29T15:11:38.554Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+    <summary type="html">&lt;p&gt;个人博客搭建成功！&lt;/p&gt;
+&lt;p&gt;这篇文章将会简单介绍如何从零搭建&lt;/p&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;准备工具&quot;&gt;&lt;a href=&quot;#准备工具&quot; class=&quot;headerlink&quot; title=&quot;准备工具&quot;&gt;&lt;/a&gt;准备工具&lt;/h3&gt;&lt;p&gt;&lt;a</summary>
         
       
     
     
     
+    <category term="博客相关" scheme="https://zxsupreme.github.io/categories/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="博客" scheme="https://zxsupreme.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一篇博客</title>
+    <link href="https://zxsupreme.github.io/2022/12/10/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://zxsupreme.github.io/2022/12/10/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
+    <published>2022-12-10T13:17:58.000Z</published>
+    <updated>2023-08-29T15:13:08.368Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;经过了大半天的折腾，终于用 Hexo +  GitHub</summary>
+        
+      
+    
+    
+    
+    <category term="博客相关" scheme="https://zxsupreme.github.io/categories/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="博客" scheme="https://zxsupreme.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
