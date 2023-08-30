@@ -6,7 +6,7 @@
   <link href="https://zxsupreme.github.io/atom.xml" rel="self"/>
   
   <link href="https://zxsupreme.github.io/"/>
-  <updated>2023-08-29T17:00:57.000Z</updated>
+  <updated>2023-08-29T16:00:57.000Z</updated>
   <id>https://zxsupreme.github.io/</id>
   
   <author>
@@ -17,28 +17,28 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>stream流</title>
-    <link href="https://zxsupreme.github.io/2023/08/30/stream%E6%B5%81/"/>
-    <id>https://zxsupreme.github.io/2023/08/30/stream%E6%B5%81/</id>
-    <published>2023-08-29T17:00:57.000Z</published>
-    <updated>2023-08-29T17:00:57.000Z</updated>
+    <title>函数式编程——lambda表达式</title>
+    <link href="https://zxsupreme.github.io/2023/05/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>https://zxsupreme.github.io/2023/05/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
+    <published>2023-05-30T12:55:40.000Z</published>
+    <updated>2023-08-29T16:00:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;Lambda表达式&quot;&gt;&lt;a href=&quot;#Lambda表达式&quot; class=&quot;headerlink&quot; title=&quot;Lambda表达式&quot;&gt;&lt;/a&gt;Lambda表达式&lt;/h2&gt;&lt;h3 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot;</summary>
+        
+      
     
     
     
+    <category term="Java" scheme="https://zxsupreme.github.io/categories/Java/"/>
     
     
-  </entry>
-  
-  <entry>
-    <title>lambda表达式</title>
-    <link href="https://zxsupreme.github.io/2023/08/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>https://zxsupreme.github.io/2023/08/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
-    <published>2023-08-29T16:55:40.000Z</published>
-    <updated>2023-08-29T16:55:40.478Z</updated>
-    
-    
-    
-    
+    <category term="Java" scheme="https://zxsupreme.github.io/tags/Java/"/>
     
   </entry>
   

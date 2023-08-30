@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="stream流, 睡大觉">
-    <meta name="description" content="">
+    <meta name="keywords" content="函数式编程——lambda表达式, 睡大觉">
+    <meta name="description" content="[TOC]
+Lambda表达式1.概述  Lambda是JDK8中的一个语法糖，可以对某些匿名内部类的写法进行简化。它是函数式编程的一个重要体现，让我们不用关注是什么对象，而是关注对数据进行了什么操作。
+2.核心原则
+可推导可省略
+
+3.基">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>stream流 | Xsupreme</title>
+    <title>函数式编程——lambda表达式 | Xsupreme</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -444,12 +449,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://z4a.net/images/2023/08/30/Java.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">stream流</h1>
+                    <h1 class="description center-align post-title">函数式编程——lambda表达式</h1>
                 </div>
             </div>
         </div>
@@ -471,12 +476,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category">
+                                Java
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -485,7 +503,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-08-30
+                    2023-05-30
                 </div>
                 
 
@@ -499,7 +517,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    324
                 </div>
                 
 
@@ -529,7 +547,79 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[TOC]</p>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>  Lambda是JDK8中的一个语法糖，可以对某些匿名内部类的写法进行简化。它是函数式编程的一个重要体现，让我们不用关注是什么对象，而是关注对数据进行了什么操作。</p>
+<h3 id="2-核心原则"><a href="#2-核心原则" class="headerlink" title="2.核心原则"></a>2.核心原则</h3><blockquote>
+<p>可推导可省略</p>
+</blockquote>
+<h3 id="3-基本格式"><a href="#3-基本格式" class="headerlink" title="3.基本格式"></a>3.基本格式</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">(</span>参数列表<span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token punctuation">{</span>代码<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>例一：</strong></p>
+<p>创建多线程并启动时使用匿名内部类的写法：</p>
+<p>（匿名内部类写法：）</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token annotation punctuation">@override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"多线程的run方法运行了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>（lambda表达式简化：）</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"多线程的run方法运行了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><font color="orange">注意：</font> </p>
+<p><font color="red">1.只有函数式接口才能使用这种写法</font></p>
+<p><font color="red">2.函数式接口：只有一个抽象方法的的接口</font></p>
+<p><font color="red">3.一个lambda表达式就是一个函数式接口的实例</font></p>
+<p><strong>例二：</strong></p>
+<p>BinaryOperator为一个接口。</p>
+<p>（匿名内部类写法：）</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">calculateNum</span><span class="token punctuation">(</span><span class="token class-name">IntBinaryOperator</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> operator<span class="token punctuation">.</span><span class="token function">applyAsInt</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">calculateNum</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IntBinaryOperator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@override</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">applyAsInt</span><span class="token punctuation">(</span><span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> left <span class="token operator">+</span> right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>（lambda表达式写法：）</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">calculateNum</span><span class="token punctuation">(</span><span class="token class-name">IntBinaryOperator</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> operator<span class="token punctuation">.</span><span class="token function">applyAsInt</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">calculateNum</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> left <span class="token operator">+</span> right<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
                 
             </div>
             <hr/>
@@ -555,7 +645,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ZXsupreme.github.io/2023/08/30/stream%E6%B5%81/">https://ZXsupreme.github.io/2023/08/30/stream%E6%B5%81/</a>
+                    <a href="https://ZXsupreme.github.io/2023/05/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">https://ZXsupreme.github.io/2023/05/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -592,7 +682,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -674,13 +768,12 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2023/08/30/stream%E6%B5%81/">
+                <a href="/2023/05/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
                     <div class="card-image">
                         
+                        <img src="https://z4a.net/images/2023/08/30/Java.jpg" class="responsive-img" alt="函数式编程——lambda表达式">
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="stream流">
-                        
-                        <span class="card-title">stream流</span>
+                        <span class="card-title">函数式编程——lambda表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -691,17 +784,29 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-30
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            只想睡大觉
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -712,13 +817,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/08/30/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                <a href="/2022/12/11/%E6%90%AD%E5%BB%BAHexo%E6%95%99%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="lambda表达式">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="如何用hexo搭建个人博客？">
                         
-                        <span class="card-title">lambda表达式</span>
+                        <span class="card-title">如何用hexo搭建个人博客？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -729,15 +834,27 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-11
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            只想睡大觉
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3/" class="post-category">
+                                    博客相关
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8D%9A%E5%AE%A2/">
+                        <span class="chip bg-color">博客</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -860,6 +977,13 @@
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
 
 
     <footer class="page-footer bg-color">
@@ -933,7 +1057,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">336</span>
+                        class="white-color">660</span>
             
             
             
