@@ -128,4 +128,223 @@
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>如何用hexo搭建个人博客？</title>
+    <url>/post/59f9f61.html</url>
+    <content><![CDATA[<p>个人博客搭建成功！</p>
+<p>这篇文章将会简单介绍如何从零搭建</p>
+<p>[TOC]</p>
+<h3 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h3><p><a href="https://nodejs.org/en">1.下载node.js</a></p>
+<p>（这篇文章里有修改node.js缓存路径的教学 <a href="https://blog.csdn.net/weixin_52799373/article/details/123840137">文章链接</a> ，觉得C盘内存充足可忽略）</p>
+<p><a href="https://git-scm.com/downloads">2.下载git</a></p>
+<p>（傻瓜式安装即可）</p>
+<p>检测是否下载成功，管理员运行cmd，依次输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.node -v</span><br><span class="line"></span><br><span class="line">2.npm -v（node自带）</span><br><span class="line"></span><br><span class="line">2.git -v</span><br></pre></td></tr></table></figure>
+<p>（出现版本号即可）</p>
+<p>[TOC]</p>
+<h3 id="配置node-js环境和搭建git仓库"><a href="#配置node-js环境和搭建git仓库" class="headerlink" title="配置node.js环境和搭建git仓库"></a>配置node.js环境和搭建git仓库</h3><p><a href="https://blog.csdn.net/wushibo123/article/details/124619123">详细教程</a></p>
+<p>至此，就成功搭建好基本的博客了，剩下的就是对博客的美化了。</p>
+<p>[TOC]</p>
+<h3 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h3><p><a href="https://blog.csdn.net/qq_44846853/article/details/104669460">详细教程</a></p>
+<p>[TOC]</p>
+<h3 id="主题美化"><a href="#主题美化" class="headerlink" title="主题美化"></a>主题美化</h3><p>1.寻找满意的主题 <a href="https://hexo.io/themes/">Hexo Themes</a></p>
+<p>2.根据文档主题内容操作</p>
+<p>3.查看本地内容（根目录git bash依次输入）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo clean</span><br><span class="line">2.hexo g</span><br><span class="line">3.hexo s</span><br></pre></td></tr></table></figure>
+<p>4.上传到git</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo g</span><br><span class="line">2.hexo d</span><br></pre></td></tr></table></figure>
+<p>（和发布博客同理）</p>
+]]></content>
+      <categories>
+        <category>博客相关</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自动化发布机器人部署指南</title>
+    <url>/post/d3c289c2.html</url>
+    <content><![CDATA[<blockquote>
+<p>通过本指南，你可以在<strong>无需公网IP</strong>的情况下，让飞书群聊中的机器人接收指令（如 <code>/deploy dev comc</code>），自动触发 Jenkins 构建，并在构建完成后返回 Git 提交记录或错误日志。</p>
+</blockquote>
+<hr>
+<h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一台 Mac</td>
+<td>用于长期运行机器人程序（也可用其他电脑，但本文以 Mac 为例）</td>
+</tr>
+<tr>
+<td>飞书企业账号</td>
+<td>拥有创建“企业自建应用”的权限</td>
+</tr>
+<tr>
+<td>Jenkins 服务器</td>
+<td>地址、用户名、密码（或 API Token）</td>
+</tr>
+<tr>
+<td>Jenkins 任务</td>
+<td>已创建好需要触发的任务（如 <code>dev-comc</code>、<code>uat-full-ext</code>），并为每个任务配置<strong>相同的远程触发 Token</strong>（见下文）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="二、飞书应用配置"><a href="#二、飞书应用配置" class="headerlink" title="二、飞书应用配置"></a>二、飞书应用配置</h2><h3 id="2-1-创建自建应用"><a href="#2-1-创建自建应用" class="headerlink" title="2.1 创建自建应用"></a>2.1 创建自建应用</h3><ol>
+<li>访问 <a href="https://open.feishu.cn/app">飞书开放平台</a> → 点击「创建企业自建应用」。</li>
+<li>填写应用名称（例如“发布机器人”），上传图标，点击「创建」。</li>
+</ol>
+<h3 id="2-2-添加机器人能力"><a href="#2-2-添加机器人能力" class="headerlink" title="2.2 添加机器人能力"></a>2.2 添加机器人能力</h3><ul>
+<li>进入应用详情页 → 左侧「添加应用能力」→「机器人」→「添加」。</li>
+</ul>
+<h3 id="2-3-获取应用凭证"><a href="#2-3-获取应用凭证" class="headerlink" title="2.3 获取应用凭证"></a>2.3 获取应用凭证</h3><ul>
+<li>点击左侧「凭证与基础信息」，记下 <strong>App ID</strong> 和 <strong>App Secret</strong>（后面会用到）。</li>
+</ul>
+<h3 id="2-4-配置权限"><a href="#2-4-配置权限" class="headerlink" title="2.4 配置权限"></a>2.4 配置权限</h3><ul>
+<li>点击左侧「权限管理」→「添加权限」，搜索并添加以下3个权限：<ul>
+<li><code>im:message.p2p_msg</code> （接收单聊消息）</li>
+<li><code>im:message.group_at_msg</code> （接收群聊@消息）</li>
+<li><code>im:message:send_as_bot</code> （发送消息）</li>
+</ul>
+</li>
+<li>添加后确保状态为“已开通”。</li>
+</ul>
+<h3 id="2-5-配置事件订阅（长连接）"><a href="#2-5-配置事件订阅（长连接）" class="headerlink" title="2.5 配置事件订阅（长连接）"></a>2.5 配置事件订阅（长连接）</h3><ul>
+<li>点击左侧「事件订阅」→ 在「订阅方式」中<strong>选择“使用长连接接收事件”</strong>。</li>
+<li>点击「添加事件」→ 搜索 <code>im.message.receive_v1</code> → 勾选并确认。</li>
+<li>点击页面底部的「保存」。</li>
+</ul>
+<h3 id="2-6-发布应用"><a href="#2-6-发布应用" class="headerlink" title="2.6 发布应用"></a>2.6 发布应用</h3><ul>
+<li>点击左侧「版本管理与发布」→「创建版本」。</li>
+<li>版本号填写 <code>1.0.0</code>，更新说明任意。</li>
+<li>可用范围建议选择“所有员工”（或指定群组）。</li>
+<li>点击「保存」→「申请发布」（企业自建应用通常自动审核通过）。</li>
+</ul>
+<h3 id="2-7-将机器人加入群聊"><a href="#2-7-将机器人加入群聊" class="headerlink" title="2.7 将机器人加入群聊"></a>2.7 将机器人加入群聊</h3><ul>
+<li>打开飞书客户端，进入目标群聊 → 点击右上角「群设置」→「群机器人」→「添加机器人」→ 搜索你的机器人名称并添加。</li>
+</ul>
+<hr>
+<h2 id="三、Jenkins-配置（每个任务都需要）"><a href="#三、Jenkins-配置（每个任务都需要）" class="headerlink" title="三、Jenkins 配置（每个任务都需要）"></a>三、Jenkins 配置（每个任务都需要）</h2><h3 id="3-1-设置远程触发-Token"><a href="#3-1-设置远程触发-Token" class="headerlink" title="3.1 设置远程触发 Token"></a>3.1 设置远程触发 Token</h3><ol>
+<li>进入 Jenkins 任务配置页面（例如 <code>dev-comc</code>）。</li>
+<li>找到「构建触发器」→ 勾选 <strong>「触发远程构建」</strong>。</li>
+<li>在「身份验证令牌」中输入一个<strong>统一 Token</strong>（例如 <code>MyCommonToken2026</code>）。</li>
+<li>点击「保存」。</li>
+<li><strong>所有需要触发的任务都使用同一个 Token</strong>。</li>
+</ol>
+<h3 id="3-2-配置构建后通知（可选，等机器人测试通过后再配置）"><a href="#3-2-配置构建后通知（可选，等机器人测试通过后再配置）" class="headerlink" title="3.2 配置构建后通知（可选，等机器人测试通过后再配置）"></a>3.2 配置构建后通知（可选，等机器人测试通过后再配置）</h3><blockquote>
+<p>这一步用于构建完成后自动发送结果到飞书群，需要将 <code>send_notify.py</code> 部署到 Jenkins 所在机器，详细步骤见第七章。</p>
+</blockquote>
+<hr>
+<h2 id="四、在-Mac-上安装环境"><a href="#四、在-Mac-上安装环境" class="headerlink" title="四、在 Mac 上安装环境"></a>四、在 Mac 上安装环境</h2><p>打开 Mac 的“终端”应用（以下命令逐条执行）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 安装 Python3（如果没有）</span></span><br><span class="line"><span class="comment"># 访问 https://www.python.org/downloads/ 下载安装</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 检查版本（应显示 3.9 或更高）</span></span><br><span class="line">python3 --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 安装依赖库</span></span><br><span class="line">pip3 install requests lark-oapi</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 创建工作目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/feishu-deploy-bot</span><br><span class="line"><span class="built_in">cd</span> ~/feishu-deploy-bot</span><br></pre></td></tr></table></figure>
+<h2 id="五、编写机器人程序"><a href="#五、编写机器人程序" class="headerlink" title="五、编写机器人程序"></a>五、编写机器人程序</h2><h3 id="5-1-配置文件-config-py"><a href="#5-1-配置文件-config-py" class="headerlink" title="5.1 配置文件 config.py"></a>5.1 配置文件 <code>config.py</code></h3><p>在 <code>~/feishu-deploy-bot</code> 目录下创建文件 <code>config.py</code>，复制以下内容并根据实际情况修改：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 飞书凭证（从开放平台获取）</span><br><span class="line">FEISHU_APP_ID = &quot;cli_xxxxxxxxxxxx&quot;          # 替换为你的 App ID</span><br><span class="line">FEISHU_APP_SECRET = &quot;xxxxxxxxxxxxxxxxxxxx&quot;  # 替换为你的 App Secret</span><br><span class="line"></span><br><span class="line"># Jenkins 信息</span><br><span class="line">JENKINS_URL = &quot;http://你的JenkinsIP:端口&quot;     # 例如 http://192.168.1.100:8080</span><br><span class="line">JENKINS_USERNAME = &quot;你的用户名&quot;</span><br><span class="line">JENKINS_PASSWORD = &quot;你的密码或API Token&quot;</span><br><span class="line">JENKINS_TOKEN = &quot;MyCommonToken2026&quot;          # 与 Jenkins 任务中设置的 Token 一致</span><br><span class="line"></span><br><span class="line"># 如果你的 Jenkins 任务放在文件夹中（例如 DICT/dev-comc），填写前缀，否则留空</span><br><span class="line">JENKINS_JOB_PREFIX = &quot;/job/DICT/job&quot;         # 示例：任务在 DICT 文件夹下</span><br><span class="line"></span><br><span class="line"># 模块名 → Jenkins 任务后缀映射（根据你的实际情况增删）</span><br><span class="line">MODULE_SUFFIX_MAP = &#123;</span><br><span class="line">    &quot;comc&quot;: &quot;comc&quot;,</span><br><span class="line">    &quot;solc&quot;: &quot;solc&quot;,</span><br><span class="line">    &quot;opec&quot;: &quot;opec&quot;,</span><br><span class="line">    &quot;oppc&quot;: &quot;oppc&quot;,</span><br><span class="line">    &quot;proc&quot;: &quot;proc&quot;,</span><br><span class="line">    &quot;ptc&quot;: &quot;ptc&quot;,</span><br><span class="line">    &quot;open-api&quot;: &quot;open-api&quot;,</span><br><span class="line">    &quot;comc-ext&quot;: &quot;comc-ext&quot;,</span><br><span class="line">    &quot;solc-ext&quot;: &quot;solc-ext&quot;,</span><br><span class="line">    &quot;opec-ext&quot;: &quot;opec-ext&quot;,</span><br><span class="line">    &quot;oppc-ext&quot;: &quot;oppc-ext-portal-ext&quot;,</span><br><span class="line">    &quot;proc-ext&quot;: &quot;proc-ext&quot;,</span><br><span class="line">    &quot;ptc-ext&quot;: &quot;ptc-ext&quot;,</span><br><span class="line">    &quot;前端&quot;: &quot;portal-ext&quot;,</span><br><span class="line">    &quot;全量后端&quot;: &quot;all-backend-ext&quot;,</span><br><span class="line">    &quot;全量发布&quot;: &quot;full-ext&quot;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VALID_ENVS = [&quot;dev&quot;, &quot;uat&quot;, &quot;prod&quot;]</span><br><span class="line"></span><br><span class="line"># 通知目标群 chat_id（后面会获取，暂时留空）</span><br><span class="line">TARGET_CHAT_ID = &quot;oc_xxxxxxxxxxxx&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-主程序-feishu-bot-py"><a href="#5-2-主程序-feishu-bot-py" class="headerlink" title="5.2 主程序 feishu_bot.py"></a>5.2 主程序 <code>feishu_bot.py</code></h3><p>创建文件 <code>feishu_bot.py</code>，复制以下完整代码：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">import json</span><br><span class="line">import re</span><br><span class="line">import requests</span><br><span class="line">import lark_oapi as lark</span><br><span class="line">from lark_oapi.api.im.v1 import *</span><br><span class="line">from config import (</span><br><span class="line">    FEISHU_APP_ID,</span><br><span class="line">    FEISHU_APP_SECRET,</span><br><span class="line">    JENKINS_URL,</span><br><span class="line">    JENKINS_USERNAME,</span><br><span class="line">    JENKINS_PASSWORD,</span><br><span class="line">    JENKINS_TOKEN,</span><br><span class="line">    JENKINS_JOB_PREFIX,</span><br><span class="line">    MODULE_SUFFIX_MAP,</span><br><span class="line">    VALID_ENVS,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">def extract_command(text: str) -&gt; str:</span><br><span class="line">    &quot;&quot;&quot;移除 @机器人的前缀，提取真实指令&quot;&quot;&quot;</span><br><span class="line">    match = re.match(r&#x27;^@[^\s]+\s+(.*)$&#x27;, text)</span><br><span class="line">    return match.group(1).strip() if match else text.strip()</span><br><span class="line"></span><br><span class="line">def get_jenkins_crumb():</span><br><span class="line">    &quot;&quot;&quot;获取 Jenkins CSRF Crumb（解决403）&quot;&quot;&quot;</span><br><span class="line">    crumb_url = f&quot;&#123;JENKINS_URL&#125;/crumbIssuer/api/json&quot;</span><br><span class="line">    try:</span><br><span class="line">        resp = requests.get(crumb_url, auth=(JENKINS_USERNAME, JENKINS_PASSWORD), timeout=10)</span><br><span class="line">        if resp.status_code == 200:</span><br><span class="line">            data = resp.json()</span><br><span class="line">            return data.get(&quot;crumb&quot;), data.get(&quot;crumbRequestField&quot;)</span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(f&quot;获取 crumb 失败: &#123;e&#125;&quot;)</span><br><span class="line">    return None, None</span><br><span class="line"></span><br><span class="line">def trigger_jenkins_build(job_name: str):</span><br><span class="line">    full_path = f&quot;&#123;JENKINS_JOB_PREFIX&#125;/&#123;job_name&#125;&quot; if JENKINS_JOB_PREFIX else f&quot;/job/&#123;job_name&#125;&quot;</span><br><span class="line">    build_url = f&quot;&#123;JENKINS_URL&#125;&#123;full_path&#125;/build?token=&#123;JENKINS_TOKEN&#125;&quot;</span><br><span class="line">    crumb, field = get_jenkins_crumb()</span><br><span class="line">    headers = &#123;field: crumb&#125; if crumb and field else &#123;&#125;</span><br><span class="line">    try:</span><br><span class="line">        resp = requests.post(build_url, auth=(JENKINS_USERNAME, JENKINS_PASSWORD),</span><br><span class="line">                             headers=headers, timeout=30)</span><br><span class="line">        if resp.status_code in [200, 201, 302]:</span><br><span class="line">            return True, &quot;触发成功&quot;</span><br><span class="line">        else:</span><br><span class="line">            return False, f&quot;HTTP &#123;resp.status_code&#125;&quot;</span><br><span class="line">    except Exception as e:</span><br><span class="line">        return False, str(e)</span><br><span class="line"></span><br><span class="line">def send_message(chat_id, text):</span><br><span class="line">    client = lark.Client.builder().app_id(FEISHU_APP_ID).app_secret(FEISHU_APP_SECRET).build()</span><br><span class="line">    req = CreateMessageRequest.builder() \</span><br><span class="line">        .receive_id_type(&quot;chat_id&quot;) \</span><br><span class="line">        .request_body(CreateMessageRequestBody.builder()</span><br><span class="line">                      .receive_id(chat_id)</span><br><span class="line">                      .msg_type(&quot;text&quot;)</span><br><span class="line">                      .content(json.dumps(&#123;&quot;text&quot;: text&#125;))</span><br><span class="line">                      .build()) \</span><br><span class="line">        .build()</span><br><span class="line">    client.im.v1.message.create(req)</span><br><span class="line"></span><br><span class="line">def handle_deploy(chat_id, env, module, reply_func):</span><br><span class="line">    if env not in VALID_ENVS:</span><br><span class="line">        reply_func(f&quot;❌ 无效环境: &#123;env&#125;&quot;)</span><br><span class="line">        return</span><br><span class="line">    if module not in MODULE_SUFFIX_MAP:</span><br><span class="line">        reply_func(f&quot;❌ 无效模块: &#123;module&#125;\n可用: &#123;&#x27;, &#x27;.join(MODULE_SUFFIX_MAP.keys())&#125;&quot;)</span><br><span class="line">        return</span><br><span class="line">    job_name = f&quot;&#123;env&#125;-&#123;MODULE_SUFFIX_MAP[module]&#125;&quot;</span><br><span class="line">    reply_func(f&quot;🚀 正在触发 &#123;job_name&#125;...&quot;)</span><br><span class="line">    ok, msg = trigger_jenkins_build(job_name)</span><br><span class="line">    if ok:</span><br><span class="line">        reply_func(f&quot;✅ 已触发 &#123;job_name&#125;&quot;)</span><br><span class="line">    else:</span><br><span class="line">        reply_func(f&quot;❌ 触发失败: &#123;msg&#125;&quot;)</span><br><span class="line"></span><br><span class="line">def handle_full(chat_id, env, reply_func):</span><br><span class="line">    if env not in VALID_ENVS:</span><br><span class="line">        reply_func(f&quot;❌ 无效环境: &#123;env&#125;&quot;)</span><br><span class="line">        return</span><br><span class="line">    job_name = f&quot;&#123;env&#125;-full-ext&quot;</span><br><span class="line">    reply_func(f&quot;🚀 正在触发全量发布 &#123;job_name&#125;...&quot;)</span><br><span class="line">    ok, msg = trigger_jenkins_build(job_name)</span><br><span class="line">    if ok:</span><br><span class="line">        reply_func(f&quot;✅ 已触发 &#123;job_name&#125;&quot;)</span><br><span class="line">    else:</span><br><span class="line">        reply_func(f&quot;❌ 触发失败: &#123;msg&#125;&quot;)</span><br><span class="line"></span><br><span class="line">def on_message(data: lark.im.v1.P2ImMessageReceiveV1):</span><br><span class="line">    try:</span><br><span class="line">        event = data.event</span><br><span class="line">        chat_id = event.message.chat_id</span><br><span class="line">        raw_text = json.loads(event.message.content).get(&quot;text&quot;, &quot;&quot;)</span><br><span class="line">        text = extract_command(raw_text)</span><br><span class="line">        print(f&quot;收到: &#123;raw_text&#125; -&gt; &#123;text&#125;&quot;)</span><br><span class="line"></span><br><span class="line">        def reply(msg):</span><br><span class="line">            send_message(chat_id, msg)</span><br><span class="line"></span><br><span class="line">        if text.startswith(&quot;/deploy &quot;):</span><br><span class="line">            parts = text.split()</span><br><span class="line">            if len(parts) != 3:</span><br><span class="line">                reply(&quot;格式: /deploy 环境 模块&quot;)</span><br><span class="line">                return</span><br><span class="line">            _, env, mod = parts</span><br><span class="line">            handle_deploy(chat_id, env, mod, reply)</span><br><span class="line">        elif text.startswith(&quot;/full &quot;):</span><br><span class="line">            parts = text.split()</span><br><span class="line">            if len(parts) != 2:</span><br><span class="line">                reply(&quot;格式: /full 环境&quot;)</span><br><span class="line">                return</span><br><span class="line">            _, env = parts</span><br><span class="line">            handle_full(chat_id, env, reply)</span><br><span class="line">        elif text == &quot;/help&quot;:</span><br><span class="line">            reply(&quot;&quot;&quot;🤖 发布机器人帮助</span><br><span class="line">@机器人 /deploy &lt;环境&gt; &lt;模块&gt;   例: /deploy dev comc</span><br><span class="line">@机器人 /full &lt;环境&gt;           例: /full uat</span><br><span class="line">环境: dev, uat, prod</span><br><span class="line">模块: &quot;&quot;&quot; + &quot;, &quot;.join(MODULE_SUFFIX_MAP.keys()))</span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(f&quot;处理消息出错: &#123;e&#125;&quot;)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    print(&quot;启动机器人...&quot;)</span><br><span class="line">    handler = lark.EventDispatcherHandler.builder(&quot;&quot;, &quot;&quot;) \</span><br><span class="line">        .register_p2_im_message_receive_v1(on_message) \</span><br><span class="line">        .build()</span><br><span class="line">    cli = lark.ws.Client(FEISHU_APP_ID, FEISHU_APP_SECRET,</span><br><span class="line">                         event_handler=handler,</span><br><span class="line">                         log_level=lark.LogLevel.INFO)</span><br><span class="line">    cli.start()</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="5-3-运行机器人"><a href="#5-3-运行机器人" class="headerlink" title="5.3 运行机器人"></a>5.3 运行机器人</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/feishu-deploy-bot</span><br><span class="line">python3 feishu_bot.py</span><br></pre></td></tr></table></figure>
+<p>看到类似输出表示成功：</p>
+<p>text</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Lark] [时间] [INFO] connected to wss://...</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-测试指令"><a href="#5-4-测试指令" class="headerlink" title="5.4 测试指令"></a>5.4 测试指令</h3><p>在飞书群里 <strong>@机器人</strong> 发送 <code>/help</code>，机器人应回复帮助信息。<br>发送 <code>/deploy dev comc</code>，机器人会提示“正在触发…”，并实际触发 Jenkins 构建。</p>
+<hr>
+<h2 id="六、获取群聊-chat-id（用于通知）"><a href="#六、获取群聊-chat-id（用于通知）" class="headerlink" title="六、获取群聊 chat_id（用于通知）"></a>六、获取群聊 <code>chat_id</code>（用于通知）</h2><ol>
+<li>运行机器人后，在群里随便发送一条消息（例如“hi”）。</li>
+<li>观察终端输出，找到类似 <code>chat_id=oc_xxxxxxxxxxxx</code> 的字符串。</li>
+<li>复制该字符串，粘贴到 <code>config.py</code> 的 <code>TARGET_CHAT_ID = &quot;oc_xxxxxxxxxxxx&quot;</code> 中。</li>
+</ol>
+<hr>
+<h2 id="七、（可选）构建结果通知脚本"><a href="#七、（可选）构建结果通知脚本" class="headerlink" title="七、（可选）构建结果通知脚本"></a>七、（可选）构建结果通知脚本</h2><p>如果希望构建完成后自动在群里发送结果（包括 Git 提交记录或错误日志），请完成以下步骤。</p>
+<h3 id="7-1-将通知脚本放到-Jenkins-服务器上"><a href="#7-1-将通知脚本放到-Jenkins-服务器上" class="headerlink" title="7.1 将通知脚本放到 Jenkins 服务器上"></a>7.1 将通知脚本放到 Jenkins 服务器上</h3><p>以下脚本 <code>send_notify.py</code> 需要与 <code>config.py</code> 放在<strong>同一台 Jenkins 机器</strong>的相同目录下（例如 <code>/opt/scripts/</code>）。</p>
+<p><code>send_notify.py</code> 完整代码：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line">import sys, json, time, requests</span><br><span class="line">from config import *</span><br><span class="line"></span><br><span class="line">class TokenManager:</span><br><span class="line">    def __init__(self, app_id, app_secret):</span><br><span class="line">        self.app_id = app_id</span><br><span class="line">        self.app_secret = app_secret</span><br><span class="line">        self.token = None</span><br><span class="line">        self.expire_at = 0</span><br><span class="line">    def get_token(self):</span><br><span class="line">        now = time.time()</span><br><span class="line">        if self.token and now &lt; self.expire_at - 300:</span><br><span class="line">            return self.token</span><br><span class="line">        return self._refresh()</span><br><span class="line">    def _refresh(self):</span><br><span class="line">        url = &quot;https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal&quot;</span><br><span class="line">        resp = requests.post(url, json=&#123;&quot;app_id&quot;: self.app_id, &quot;app_secret&quot;: self.app_secret&#125;, timeout=30)</span><br><span class="line">        data = resp.json()</span><br><span class="line">        if data.get(&quot;code&quot;) != 0:</span><br><span class="line">            raise Exception(f&quot;token获取失败: &#123;data&#125;&quot;)</span><br><span class="line">        self.token = data[&quot;tenant_access_token&quot;]</span><br><span class="line">        self.expire_at = time.time() + data[&quot;expire&quot;]</span><br><span class="line">        return self.token</span><br><span class="line"></span><br><span class="line">def send_feishu(chat_id, text):</span><br><span class="line">    tm = TokenManager(FEISHU_APP_ID, FEISHU_APP_SECRET)</span><br><span class="line">    token = tm.get_token()</span><br><span class="line">    url = &quot;https://open.feishu.cn/open-apis/im/v1/messages&quot;</span><br><span class="line">    headers = &#123;&quot;Authorization&quot;: f&quot;Bearer &#123;token&#125;&quot;, &quot;Content-Type&quot;: &quot;application/json&quot;&#125;</span><br><span class="line">    data = &#123;&quot;receive_id&quot;: chat_id, &quot;msg_type&quot;: &quot;text&quot;, &quot;content&quot;: json.dumps(&#123;&quot;text&quot;: text&#125;)&#125;</span><br><span class="line">    requests.post(url, params=&#123;&quot;receive_id_type&quot;: &quot;chat_id&quot;&#125;, headers=headers, json=data, timeout=30)</span><br><span class="line"></span><br><span class="line">def get_log(job_full_name, build_num):</span><br><span class="line">    parts = job_full_name.split(&#x27;/&#x27;)</span><br><span class="line">    url_path = &#x27;/job/&#x27;.join(parts)</span><br><span class="line">    if not url_path.startswith(&#x27;/job/&#x27;):</span><br><span class="line">        url_path = f&quot;/job/&#123;url_path&#125;&quot;</span><br><span class="line">    log_url = f&quot;&#123;JENKINS_URL&#125;&#123;url_path&#125;/&#123;build_num&#125;/consoleText&quot;</span><br><span class="line">    resp = requests.get(log_url, auth=(JENKINS_USERNAME, JENKINS_PASSWORD), timeout=30)</span><br><span class="line">    return resp.text if resp.status_code == 200 else &quot;&quot;</span><br><span class="line"></span><br><span class="line">def extract_commits(log):</span><br><span class="line">    commits = []</span><br><span class="line">    lines = log.split(&#x27;\n&#x27;)</span><br><span class="line">    for i, line in enumerate(lines):</span><br><span class="line">        if line.startswith(&#x27;commit &#x27;):</span><br><span class="line">            h = line.split()[1][:12]</span><br><span class="line">            a = &quot;&quot;</span><br><span class="line">            m = &quot;&quot;</span><br><span class="line">            for j in range(i+1, min(i+10, len(lines))):</span><br><span class="line">                l = lines[j].strip()</span><br><span class="line">                if l.startswith(&#x27;Author:&#x27;):</span><br><span class="line">                    a = l[7:].strip()</span><br><span class="line">                elif l.startswith(&#x27;    &#x27;):</span><br><span class="line">                    m = l.strip()</span><br><span class="line">                    break</span><br><span class="line">            if a or m:</span><br><span class="line">                commits.append(f&quot;• &#123;h&#125; - &#123;a&#125;: &#123;m[:60]&#125;&quot;)</span><br><span class="line">    return commits</span><br><span class="line"></span><br><span class="line">def extract_errors(log, max_lines=100):</span><br><span class="line">    keywords = [&#x27;ERROR&#x27;, &#x27;FAILED&#x27;, &#x27;Exception&#x27;, &#x27;Error:&#x27;, &#x27;Failed:&#x27;]</span><br><span class="line">    lines = log.split(&#x27;\n&#x27;)</span><br><span class="line">    errors = [l for l in lines if any(k in l for k in keywords)]</span><br><span class="line">    if errors:</span><br><span class="line">        return &#x27;\n&#x27;.join(errors[-max_lines:])</span><br><span class="line">    return &#x27;\n&#x27;.join(lines[-max_lines:])</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    if len(sys.argv) &lt; 4:</span><br><span class="line">        print(&quot;用法: send_notify.py JOB_NAME BUILD_NUMBER BUILD_STATUS&quot;)</span><br><span class="line">        sys.exit(1)</span><br><span class="line">    job = sys.argv[1]</span><br><span class="line">    num = sys.argv[2]</span><br><span class="line">    status = sys.argv[3].upper()</span><br><span class="line">    print(f&quot;通知: &#123;job&#125; #&#123;num&#125; &#123;status&#125;&quot;)</span><br><span class="line">    log = get_log(job, num)</span><br><span class="line">    msg = &quot;&quot;</span><br><span class="line">    if status == &quot;SUCCESS&quot;:</span><br><span class="line">        commits = extract_commits(log)</span><br><span class="line">        msg = f&quot;✅ &#123;job&#125; 构建成功！\n🔗 &#123;JENKINS_URL&#125;/job/&#123;job.replace(&#x27;/&#x27;, &#x27;/job/&#x27;)&#125;/&#123;num&#125;/\n&quot;</span><br><span class="line">        if commits:</span><br><span class="line">            msg += &quot;📝 Git 提交记录：\n&quot; + &quot;\n&quot;.join(commits[:5])</span><br><span class="line">        else:</span><br><span class="line">            msg += &quot;📝 未获取到提交记录&quot;</span><br><span class="line">    else:</span><br><span class="line">        err = extract_errors(log)</span><br><span class="line">        msg = f&quot;❌ &#123;job&#125; 构建失败！\n🔗 &#123;JENKINS_URL&#125;/job/&#123;job.replace(&#x27;/&#x27;, &#x27;/job/&#x27;)&#125;/&#123;num&#125;/\n&quot;</span><br><span class="line">        if err:</span><br><span class="line">            msg += f&quot;📋 错误日志(最后100行):\n```\n&#123;err[:3000]&#125;\n```&quot;</span><br><span class="line">        else:</span><br><span class="line">            msg += &quot;📋 无法获取日志&quot;</span><br><span class="line">    send_feishu(TARGET_CHAT_ID, msg)</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-在-Jenkins-任务中配置构建后操作"><a href="#7-2-在-Jenkins-任务中配置构建后操作" class="headerlink" title="7.2 在 Jenkins 任务中配置构建后操作"></a>7.2 在 Jenkins 任务中配置构建后操作</h3><ul>
+<li><p>进入每个任务的配置页面 →「构建后操作」→ 点击「增加构建后操作」→ 选择 <strong>「Execute shell」</strong>。</p>
+</li>
+<li><p>在命令框中输入（路径请根据实际情况修改）：</p>
+<p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 /opt/scripts/send_notify.py &quot;$JOB_NAME&quot; &quot;$BUILD_NUMBER&quot; &quot;$BUILD_STATUS&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>保存。</li>
+</ul>
+<hr>
+<h2 id="八、后台运行（让机器人保持运行）"><a href="#八、后台运行（让机器人保持运行）" class="headerlink" title="八、后台运行（让机器人保持运行）"></a>八、后台运行（让机器人保持运行）</h2><p>使用 <code>nohup</code> 让机器人后台运行，即使关闭终端也不会停止：</p>
+<p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/feishu-deploy-bot</span><br><span class="line">nohup python3 feishu_bot.py &gt; bot.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看实时日志：<code>tail -f bot.log</code></li>
+<li>停止机器人：<code>pkill -f feishu_bot.py</code></li>
+<li>重启机器人：先停止再重新运行</li>
+</ul>
+<h3 id="设置开机自启（可选）"><a href="#设置开机自启（可选）" class="headerlink" title="设置开机自启（可选）"></a>设置开机自启（可选）</h3><p>创建文件 <code>~/Library/LaunchAgents/com.feishu.deploybot.plist</code>，内容如下：</p>
+<p>xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;Label&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;com.feishu.deploybot&lt;/string&gt;</span><br><span class="line">    &lt;key&gt;ProgramArguments&lt;/key&gt;</span><br><span class="line">    &lt;array&gt;</span><br><span class="line">        &lt;string&gt;/usr/bin/python3&lt;/string&gt;</span><br><span class="line">        &lt;string&gt;/Users/你的用户名/feishu-deploy-bot/feishu_bot.py&lt;/string&gt;</span><br><span class="line">    &lt;/array&gt;</span><br><span class="line">    &lt;key&gt;RunAtLoad&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">    &lt;key&gt;KeepAlive&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<p>然后执行：</p>
+<p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">launchctl load ~/Library/LaunchAgents/com.feishu.deploybot.plist</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="九、常见问题与解决"><a href="#九、常见问题与解决" class="headerlink" title="九、常见问题与解决"></a>九、常见问题与解决</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">问题</th>
+<th style="text-align:left">解决方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">机器人无响应</td>
+<td style="text-align:left">① 检查飞书后台事件订阅是否已选择“长连接”；② 确认应用已发布；③ 查看终端是否有报错</td>
+</tr>
+<tr>
+<td style="text-align:left">触发 Jenkins 返回 403</td>
+<td style="text-align:left">代码已自动获取 crumb，如仍失败，请在 Jenkins 全局安全中临时禁用 CSRF 测试</td>
+</tr>
+<tr>
+<td style="text-align:left">构建后未收到通知</td>
+<td style="text-align:left">检查 <code>send_notify.py</code> 路径和权限；确认 <code>TARGET_CHAT_ID</code> 正确；手动运行脚本测试</td>
+</tr>
+<tr>
+<td style="text-align:left">获取日志提示“无法获取”</td>
+<td style="text-align:left">确认 Jenkins 任务名包含文件夹路径（如 <code>DICT/dev-comc-ext</code>），且 <code>JENKINS_JOB_PREFIX</code> 配置正确</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ModuleNotFoundError: No module named &#39;lark_oapi&#39;</code></td>
+<td style="text-align:left">运行 <code>pip3 install lark-oapi</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>通过以上步骤，你已经拥有一个完全可用的自动化发布机器人，无需公网 IP，仅需一台能联网的 Mac 即可长期运行。团队成员只需在群里 <strong>@机器人 + 指令</strong> 即可完成部署，构建结果自动反馈到群内。</p>
+<p><strong>支持的指令</strong>：</p>
+<ul>
+<li><code>@机器人 /deploy &lt;环境&gt; &lt;模块名&gt;</code> 例如 <code>@机器人 /deploy dev comc</code></li>
+<li><code>@机器人 /full &lt;环境&gt;</code> 例如 <code>@机器人 /full uat</code></li>
+<li><code>@机器人 /help</code> 查看帮助</li>
+</ul>
+<p><strong>可用环境</strong>：<code>dev</code>、<code>uat</code>、<code>prod</code></p>
+<p><strong>可用模块</strong>：见 <code>config.py</code> 中的 <code>MODULE_SUFFIX_MAP</code> 定义。</p>
+<p>如有问题，可以根据终端日志排查，或检查飞书开放平台中的应用配置。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
 </search>
