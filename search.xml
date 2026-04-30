@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>函数式编程——lambda表达式</title>
+    <url>/post/330a6169.html</url>
+    <content><![CDATA[<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>  Lambda是JDK8中的一个语法糖，可以对某些匿名内部类的写法进行简化。它是函数式编程的一个重要体现，让我们不用关注是什么对象，而是关注对数据进行了什么操作。</p>
+<h3 id="核心原则"><a href="#核心原则" class="headerlink" title="核心原则"></a>核心原则</h3><blockquote>
+<p>可推导可省略</p>
+</blockquote>
+<h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">(参数列表)-&gt;&#123;代码&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>例一：</strong></p>
+<p>创建多线程并启动时使用匿名内部类的写法：</p>
+<p>（匿名内部类写法：）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>()&#123;</span><br><span class="line">	<span class="meta">@override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;多线程的run方法运行了&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+<p>（lambda表达式简化：）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>( () -&gt; &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;多线程的run方法运行了&quot;</span>);</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+<font color='orange'>注意：</font> 
+
+<font color='red'>1.只有函数式接口才能使用这种写法</font>
+
+<font color='red'>2.函数式接口：只有一个抽象方法的的接口</font>
+
+<font color='red'>3.一个lambda表达式就是一个函数式接口的实例</font>
+
+
+
+<p><strong>例二：</strong></p>
+<p>BinaryOperator为一个接口。</p>
+<p>（匿名内部类写法：）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">calculateNum</span><span class="params">(IntBinaryOperator)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> operator.applyAsInt(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> calculateNum(<span class="keyword">new</span> <span class="title class_">IntBinaryOperator</span>()&#123;</span><br><span class="line">        <span class="meta">@override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">applyAsInt</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> left + right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    System.out.println(i);</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（lambda表达式写法：）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">calculateNum</span><span class="params">(IntBinaryOperator)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> operator.applyAsInt(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> calculateNum((<span class="type">int</span> left, <span class="type">int</span> right) -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> left + right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    System.out.println(i);</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>初识Vue</title>
     <url>/post/c07ae04a.html</url>
     <content><![CDATA[<h2 id="什么是Vue？"><a href="#什么是Vue？" class="headerlink" title="什么是Vue？"></a>什么是Vue？</h2><p>1.Vue是一套<font color='red'>前端框架</font>，免除原生1Javascript中的DOM操作，简化书写。</p>
@@ -88,44 +126,6 @@
       </categories>
       <tags>
         <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>函数式编程——lambda表达式</title>
-    <url>/post/330a6169.html</url>
-    <content><![CDATA[<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>  Lambda是JDK8中的一个语法糖，可以对某些匿名内部类的写法进行简化。它是函数式编程的一个重要体现，让我们不用关注是什么对象，而是关注对数据进行了什么操作。</p>
-<h3 id="核心原则"><a href="#核心原则" class="headerlink" title="核心原则"></a>核心原则</h3><blockquote>
-<p>可推导可省略</p>
-</blockquote>
-<h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">(参数列表)-&gt;&#123;代码&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>例一：</strong></p>
-<p>创建多线程并启动时使用匿名内部类的写法：</p>
-<p>（匿名内部类写法：）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>()&#123;</span><br><span class="line">	<span class="meta">@override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;多线程的run方法运行了&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
-<p>（lambda表达式简化：）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>( () -&gt; &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;多线程的run方法运行了&quot;</span>);</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
-<font color='orange'>注意：</font> 
-
-<font color='red'>1.只有函数式接口才能使用这种写法</font>
-
-<font color='red'>2.函数式接口：只有一个抽象方法的的接口</font>
-
-<font color='red'>3.一个lambda表达式就是一个函数式接口的实例</font>
-
-
-
-<p><strong>例二：</strong></p>
-<p>BinaryOperator为一个接口。</p>
-<p>（匿名内部类写法：）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">calculateNum</span><span class="params">(IntBinaryOperator)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> operator.applyAsInt(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> calculateNum(<span class="keyword">new</span> <span class="title class_">IntBinaryOperator</span>()&#123;</span><br><span class="line">        <span class="meta">@override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">applyAsInt</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> left + right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    System.out.println(i);</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>（lambda表达式写法：）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">calculateNum</span><span class="params">(IntBinaryOperator)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> operator.applyAsInt(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> calculateNum((<span class="type">int</span> left, <span class="type">int</span> right) -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> left + right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    System.out.println(i);</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
