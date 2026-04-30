@@ -32,6 +32,8 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">calculateNum</span><span class="params">(IntBinaryOperator)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> operator.applyAsInt(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> calculateNum((<span class="type">int</span> left, <span class="type">int</span> right) -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> left + right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    System.out.println(i);</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
+        <category>技术</category>
+        <category>后端</category>
         <category>Java</category>
       </categories>
       <tags>
@@ -122,6 +124,8 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//定义Vue对象</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">        <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>, <span class="comment">//Vue接管区域</span></span><br><span class="line">        <span class="attr">data</span>: &#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">methods</span>: &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">mounted</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="title function_">alert</span>(<span class="string">&quot;Vue挂载完成，发送请求服务端&quot;</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
+        <category>技术</category>
+        <category>前端</category>
         <category>Vue</category>
       </categories>
       <tags>
@@ -156,10 +160,12 @@
 <p>（和发布博客同理）</p>
 ]]></content>
       <categories>
-        <category>博客相关</category>
+        <category>技术</category>
+        <category>前端</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>博客</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -341,7 +347,22 @@
 <p>如有问题，可以根据终端日志排查，或检查飞书开放平台中的应用配置。</p>
 ]]></content>
       <categories>
-        <category>博客</category>
+        <category>技术</category>
+        <category>运维</category>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>飞书</tag>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇博客</title>
+    <url>/post/ff05b5bf.html</url>
+    <content><![CDATA[<p>经过了大半天的折腾，终于用 Hexo +  GitHub 实现了一个个人博客了，感觉还是挺兴奋的，对于一个不善言辞的人来说，偶尔写写博客、发发牢骚是真的最正常不过，以后就可以更新一些get到的小知识和写写一些个人总结，顺便写一些注意事项来深刻提醒自己。</p>
+]]></content>
+      <categories>
+        <category>博客相关</category>
       </categories>
       <tags>
         <tag>博客</tag>
