@@ -362,10 +362,49 @@
     <content><![CDATA[<p>经过了大半天的折腾，终于用 Hexo +  GitHub 实现了一个个人博客了，感觉还是挺兴奋的，对于一个不善言辞的人来说，偶尔写写博客、发发牢骚是真的最正常不过，以后就可以更新一些get到的小知识和写写一些个人总结，顺便写一些注意事项来深刻提醒自己。</p>
 ]]></content>
       <categories>
-        <category>博客相关</category>
+        <category>其他</category>
+        <category>发牢骚</category>
       </categories>
       <tags>
-        <tag>博客</tag>
+        <tag>发牢骚</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重启Hexo</title>
+    <url>/post/76a9d2da.html</url>
+    <content><![CDATA[<blockquote>
+<p>突然发现好久没有发过博客了，一转眼已经工作快一年了，当初使用Hexo的时候竟已经过去三年之久，当初还是一名大二的小萌新，之前真的是太懒了，能不记就不记，总觉得凭脑子能记住，实际上重启Hexo也折腾了不少时间，因为之前配置的域名早已过期，但是代码中任然保留着CNAME，导致一直访问不了在线博客</p>
+</blockquote>
+<hr>
+<h2 id="一、回顾部署"><a href="#一、回顾部署" class="headerlink" title="一、回顾部署"></a>一、回顾部署</h2><p><img src="/img/blog/image-20260509143152510.png" alt="image-20260509143152510"></p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p>这里需要注意的是，Repository name 必须设置为用户名.github.io，否则导致访问失败</p>
+</blockquote>
+<hr>
+<h2 id="二、回顾命令"><a href="#二、回顾命令" class="headerlink" title="二、回顾命令"></a>二、回顾命令</h2><p>这里列出一些比较重要的命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo c <span class="comment"># 清除缓存</span></span><br><span class="line">hexo g <span class="comment"># 将代码转译为静态资源</span></span><br><span class="line">hexo d <span class="comment"># 上传文件到git仓库</span></span><br><span class="line">hexo new post “文章标题” <span class="comment"># 创建一个新的md文件</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="三、回顾文件夹"><a href="#三、回顾文件夹" class="headerlink" title="三、回顾文件夹"></a>三、回顾文件夹</h2><p><img src="/img/blog/image-20260509144455504.png" alt="image-20260509144455504"></p>
+<p>进入到根目录可以看到这些文件：</p>
+<ol>
+<li>_config.yml：基础的配置文件</li>
+<li>_config.butterfly.yml：使用 butterfly （页面美化）后的配置文件</li>
+<li>node_modules：依赖文件，通过命令 <code>npm i</code> 下载，类似于 vue 中的依赖</li>
+<li>source/img ：图片的存放位置，放在该文件夹下才可用 <code>/img/*</code> 来访问</li>
+<li>source/_post：md 文件的存放路径，将需要发表的文章放入该目录即可</li>
+</ol>
+<hr>
+<h2 id="四、回顾文章模板"><a href="#四、回顾文章模板" class="headerlink" title="四、回顾文章模板"></a>四、回顾文章模板</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">重启Hexo</span>                <span class="comment"># 文章标题，显示在页面和列表中</span></span><br><span class="line"><span class="attr">top:</span> <span class="literal">false</span>                     <span class="comment"># 是否置顶（true 则文章固定在顶部）</span></span><br><span class="line"><span class="attr">cover:</span> <span class="literal">false</span>                   <span class="comment"># 是否单独开启封面图（false 表示使用主题默认配置）</span></span><br><span class="line"><span class="attr">toc:</span> <span class="literal">true</span>                      <span class="comment"># 是否显示文章目录（Table of Contents）</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">false</span>                 <span class="comment"># 是否启用 MathJax 数学公式渲染</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2026-05-09 13:55:08</span>      <span class="comment"># 文章创建时间</span></span><br><span class="line"><span class="attr">updated:</span> <span class="number">2026-05-09 13:55:08</span>   <span class="comment"># 文章更新时间</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Xsupreme</span>                <span class="comment"># 作者名称（可覆盖全局配置）</span></span><br><span class="line"><span class="attr">img:</span>                           <span class="comment"># 文章专属的封面图链接（留空则使用主题默认）</span></span><br><span class="line"><span class="attr">coverImg:</span>                      <span class="comment"># 文章头图（部分主题与 img 不同，留空表示不单独设置）</span></span><br><span class="line"><span class="attr">password:</span>                      <span class="comment"># 文章访问密码（设置后需要输入密码才能阅读）</span></span><br><span class="line"><span class="attr">summary:</span>                       <span class="comment"># 文章摘要（留空则自动从正文截取）</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">发牢骚</span>                   <span class="comment"># 文章标签（支持多个，可用 [标签1, 标签2] 或列表形式）</span></span><br><span class="line"><span class="attr">categories:</span>                    <span class="comment"># 文章分类（注意：多个项表示父子层级，而非平行分类）</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">其他</span>                       <span class="comment"># 一级分类</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">发牢骚</span>                     <span class="comment"># 二级分类，最终分类路径为“其他/发牢骚”</span></span><br></pre></td></tr></table></figure>
+<p>该模板在配置在 <code>/scaffolds/post.md</code> 路径下，使用命令 <code>hexo new post “文章标题”</code> 后生成 md 文件自带</p>
+<hr>
+]]></content>
+      <categories>
+        <category>其他</category>
+        <category>发牢骚</category>
+      </categories>
+      <tags>
+        <tag>发牢骚</tag>
       </tags>
   </entry>
 </search>
