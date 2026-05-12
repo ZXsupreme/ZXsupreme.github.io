@@ -1,0 +1,446 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jenkins 部署指南 | Xsupreme</title><meta name="author" content="Xsupreme"><meta name="copyright" content="Xsupreme"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通过本指南可快速部署 Jenkins  背景手动打包部署的步骤非常繁琐，又费时，为此寻找一份解决该问题的解决方案。  操作步骤安装工具在 macOS 上部署 Jenkins，最推荐使用 Homebrew 进行安装，过程非常简便。  安装 Homebrew 如果 Mac 尚未安装 Homebrew 包管理器，请先在终端（Terminal）中执行以下命令进行安装   12&#x2F;bin&#x2F;bash -c &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins 部署指南">
+<meta property="og:url" content="https://zxsupreme.github.io/post/c0a49e71.html">
+<meta property="og:site_name" content="Xsupreme">
+<meta property="og:description" content="通过本指南可快速部署 Jenkins  背景手动打包部署的步骤非常繁琐，又费时，为此寻找一份解决该问题的解决方案。  操作步骤安装工具在 macOS 上部署 Jenkins，最推荐使用 Homebrew 进行安装，过程非常简便。  安装 Homebrew 如果 Mac 尚未安装 Homebrew 包管理器，请先在终端（Terminal）中执行以下命令进行安装   12&#x2F;bin&#x2F;bash -c &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zxsupreme.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2026-05-12T06:37:31.000Z">
+<meta property="article:modified_time" content="2026-05-12T06:37:31.000Z">
+<meta property="article:author" content="Xsupreme">
+<meta property="article:tag" content="睡大觉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zxsupreme.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zxsupreme.github.io/post/c0a49e71.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jenkins 部署指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-05-12 14:37:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"> <link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"> <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 百宝箱</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.163.com/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li><li><a class="site-page child" href="/galleries/"><i class="fa-fw fas fa-image"></i><span> 美图</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent"><nav id="nav"><span id="blog-info"><a href="/" title="Xsupreme"><img class="site-icon" src="/img/favicon.png"/><span class="site-name">Xsupreme</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 百宝箱</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.163.com/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li><li><a class="site-page child" href="/galleries/"><i class="fa-fw fas fa-image"></i><span> 美图</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Jenkins 部署指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-12T06:37:31.000Z" title="发表于 2026-05-12 14:37:31">2026-05-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-12T06:37:31.000Z" title="更新于 2026-05-12 14:37:31">2026-05-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/%E8%BF%90%E7%BB%B4/">运维</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/%E8%BF%90%E7%BB%B4/Jenkins/">Jenkins</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Jenkins 部署指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>通过本指南可快速部署 Jenkins</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>手动打包部署的步骤非常繁琐，又费时，为此寻找一份解决该问题的解决方案。</p>
+<hr>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="安装工具"><a href="#安装工具" class="headerlink" title="安装工具"></a>安装工具</h3><p>在 macOS 上部署 Jenkins，最推荐使用 Homebrew 进行安装，过程非常简便。</p>
+<ol>
+<li><p><strong>安装 Homebrew</strong></p>
+<p>如果 Mac 尚未安装 Homebrew 包管理器，请先在终端（Terminal）中执行以下命令进行安装</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br><span class="line">```&lt;websource&gt;source_group_web_1&lt;/websource&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>安装 Jenkins</strong></li>
+</ol>
+<p>Jenkins 分为最新版和长期支持版（LTS）。这里使用的是更稳定的 LTS 版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins-lts</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>启动 Jenkins 服务</strong></li>
+</ol>
+<p>安装完成后，使用 <code>brew services</code> 命令将 Jenkins 作为后台服务启动。这样即使重启电脑，Jenkins 也会自动运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services start jenkins-lts</span><br></pre></td></tr></table></figure>
+<p>如果不希望重启电脑 Jenkins 自动运行，也可运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenkins-lts</span><br></pre></td></tr></table></figure>
+<p>其他常用服务管理命令：</p>
+<ul>
+<li><strong>停止服务</strong>: <code>brew services stop jenkins-lts</code></li>
+<li><strong>重启服务</strong>: <code>brew services restart jenkins-lts</code></li>
+<li><strong>查看服务状态</strong>: <code>brew services list</code></li>
+</ul>
+<h3 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h3><ol>
+<li><p><strong>访问 Jenkins</strong><br>服务启动成功后，打开浏览器访问 <code>http://localhost:8080</code>。你将看到解锁 Jenkins 的页面。</p>
+</li>
+<li><p><strong>获取初始管理员密码</strong><br>首次访问需要输入初始管理员密码。在终端中执行以下命令即可查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
+<p>复制终端输出的密码，粘贴到网页的输入框中。</p>
+</li>
+<li><p><strong>完成向导设置</strong></p>
+<ul>
+<li><strong>安装插件</strong>: 点击「安装推荐的插件」，Jenkins 会自动安装 Git、SSH、Pipeline 等常用插件。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>创建管理员账户</strong>: 插件安装完成后，根据提示设置你的管理员用户名、密码和邮箱地址。</p>
+</li>
+<li><p><strong>配置实例 URL</strong>: 保持默认的 <code>http://localhost:8080</code> 即可，然后点击“保存并完成”。</p>
+</li>
+</ul>
+<h3 id="Jenkins-配置"><a href="#Jenkins-配置" class="headerlink" title="Jenkins 配置"></a>Jenkins 配置</h3><ol>
+<li><p>进入 Jenkins 首页，【新建任务】选择【创建文件夹】</p>
+<p><img src="/img/blog/image-20260512151729437.png" alt="image-20260512151729437"></p>
+</li>
+<li><p>在刚刚创建的文件夹中【新建任务】，选择【流水线】，配置流水线的【Pipeline script】</p>
+<p>这里可以让AI生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">你是一位拥有10年经验的DevOps专家，精通Jenkins Pipeline (Declarative Pipeline) 编写、Shell脚本编程以及Java应用部署。</span><br><span class="line">任务目标： 编写一个用于在Mac环境下的Jenkins Pipeline脚本，用于构建并部署Java程序到远程Linux服务器。</span><br><span class="line">全局变量定义： 请在脚本顶部定义 `environment` 块，包含以下变量：</span><br><span class="line"></span><br><span class="line">* Git配置：</span><br><span class="line">   * 仓库地址：``</span><br><span class="line">   * 分支：``</span><br><span class="line">   * 凭据ID：`XXX`</span><br><span class="line">* 路径配置：</span><br><span class="line">   * 本地Maven仓库：`<span class="variable">$&#123;env.HOME&#125;</span>/Environment/Maven/apache-maven-3.6.3/dict/dev-hk`</span><br><span class="line">   * 本地打包输出目录：`<span class="variable">$&#123;WORKSPACE&#125;</span>/Environment/Maven/apache-maven-3.6.3/dict/dev-hk`</span><br><span class="line">   * 远程主机：`DICT-mit-region-dev-0002`</span><br><span class="line">   * 远程用户：`dict` (家目录为 `/dict`)</span><br><span class="line">   * 远程应用根目录：`/dict/apps/comc` (注意：这是绝对路径)</span><br><span class="line">   * 远程应用Jar路径：`<span class="variable">$&#123;远程应用根目录&#125;</span>/lib/comc-ext-svc-CMHK-1.0.0-BOOT.jar`</span><br><span class="line">   * 远程备份路径：`<span class="variable">$&#123;远程应用根目录&#125;</span>/backup/`</span><br><span class="line">* 工具版本：JDK 1.8, Maven 3.6.3</span><br><span class="line">执行流程与详细要求： 脚本需包含以下阶段，每个阶段必须有中文注释和详细的 `<span class="built_in">echo</span>` 日志输出：</span><br><span class="line"></span><br><span class="line">1. Checkout (代码拉取)</span><br><span class="line">   * 拉取指定Git仓库和分支的代码。</span><br><span class="line">2. Build (Maven构建)</span><br><span class="line">   * 执行打包命令：`mvn clean install -DskipTests -e -Pnjin,cmhk,dev -Dmaven.repo.local=<span class="variable">$&#123;本地Maven仓库&#125;</span> -DaltDeploymentRepository=local-repo::default::file://<span class="variable">$&#123;本地打包输出目录&#125;</span>`</span><br><span class="line">   * 要求：设置阶段超时时间（例如30分钟）。</span><br><span class="line">3. Deploy (远程部署)</span><br><span class="line">   * 此阶段需通过SSH连接远程主机（用户 `dict`）。</span><br><span class="line">   * 关键路径说明：由于登录用户是 `dict`，其家目录是 `/dict`。在执行所有远程命令和文件传输时，必须使用绝对路径（例如 `/dict/apps/comc/...`），严禁依赖相对路径，防止路径拼接错误。</span><br><span class="line">   * 步骤A：停止服务</span><br><span class="line">      * 执行脚本：`/dict/apps/comc/bin/stop.sh`</span><br><span class="line">      * 设置超时时间（例如5分钟）。</span><br><span class="line">   * 步骤B：备份旧程序</span><br><span class="line">      * 将 `<span class="variable">$&#123;远程应用Jar路径&#125;</span>` 复制到 `<span class="variable">$&#123;远程备份路径&#125;</span>`。</span><br><span class="line">      * 重命名备份文件，追加时间戳（格式：`yyyyMMddHHmm`），例如：`comc-ext-svc-CMHK-1.0.0-BOOT.jar_202604211011`。</span><br><span class="line">      * 日志：输出“正在从 [源路径] 备份到 [目标路径]”。</span><br><span class="line">   * 步骤C：清理旧备份</span><br><span class="line">      * 在 `<span class="variable">$&#123;远程备份路径&#125;</span>` 目录下，只保留最新的5个备份文件，删除其余旧文件。</span><br><span class="line">   * 步骤D：上传新程序</span><br><span class="line">      * 将构建好的Jar包从Jenkins Workspace上传到远程 `/dict/apps/comc/lib/` 目录。</span><br><span class="line">      * 注意：在配置 `sshPublisher` 或 `Publish Over SSH` 插件时，如果 `Remote Directory` 设置为空或 `/dict`，请务必使用 `Remove Prefix` 和正确的 `Source Files` 配合，确保文件最终落在 `/dict/apps/comc/lib/` 而不是 `/dict/dict/...`。建议直接使用绝对路径执行 `scp` 或在 `Exec Command` 中处理移动逻辑。</span><br><span class="line">      * 日志：输出“程序已上传至 [远程目录]”。</span><br><span class="line">   * 步骤E：启动服务</span><br><span class="line">      * 执行脚本：`/dict/apps/comc/bin/start.sh`</span><br><span class="line">      * 设置超时时间。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在刚刚创建的文件夹中【新建视图】，选择【列表视图】（之所以选择这个视图为了后面分权限做准备）</p>
+<p><img src="/img/blog/image-20260512152051148.png" alt="image-20260512152051148"></p>
+</li>
+<li><p>在【列表视图】设置权限</p>
+<ul>
+<li><p><del>一个一个任务勾选</del>【太麻烦了】</p>
+</li>
+<li><p>使用正则表达式匹配</p>
+</li>
+</ul>
+<p>在【编辑视图】中【任务列表】下勾选“使用正则表达式在视图中显示任务”，输入相应的正则表达式即可</p>
+</li>
+<li><p>在【系统管理】-&gt;【全局工具配置】中配置 git、maven、node</p>
+</li>
+<li><p>在【系统管理】-&gt;【系统配置】中配置主机信息（需要插件 Publish Over SSH 支持）</p>
+</li>
+</ol>
+<hr>
+<h2 id="重要插件"><a href="#重要插件" class="headerlink" title="重要插件"></a>重要插件</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/publish-over-ssh">Publish Over SSH</a>：用于连接远程服务器</li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/role-strategy">Role-based Authorization Strategy</a>：用于设置访问权限</li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/pipeline-stage-view/?source=post_page-----da3651d19de6---------------------------------------">Stage View</a>：以一目了然的表格形式展示流水线各阶段的执行历史</li>
+<li><a target="_blank" rel="noopener" href="https://plugins.origin.jenkins.io/blueocean/">Blue Ocean</a>：提供一套 <strong>全新的、现代化风格的 UI</strong></li>
+</ul>
+<h2 id="权限配置（可选）"><a href="#权限配置（可选）" class="headerlink" title="权限配置（可选）"></a>权限配置（可选）</h2><p>如果需要不同用户访问不同的任务可使用，需要插件 Role-based Authorization Strategy 支持</p>
+<ol>
+<li>进入【系统管理】-&gt;【管理用户】中创建一个新用户</li>
+<li>进入【系统管理】-&gt;【Manage and Assign Roles】-&gt;【Manage Roles】中配置【Global roles】和【item roles】</li>
+<li>进入【系统管理】-&gt;【Manage and Assign Roles】-&gt;【Assign Roles】中为角色配置不同权限</li>
+</ol>
+<p><img src="/img/blog/image-20260512155527574.png" alt="image-20260512155527574"></p>
+<p>注意：这里设置完【Manage Roles】后需要进入【Assign Roles】为管理员配置权限，否则可能导致退出后登录不了</p>
+<h2 id="踩过的坑与解决方案"><a href="#踩过的坑与解决方案" class="headerlink" title="踩过的坑与解决方案"></a>踩过的坑与解决方案</h2><h3 id="文件路径问题"><a href="#文件路径问题" class="headerlink" title="文件路径问题"></a>文件路径问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>./utils/start-app.sh: No such file or directory</code></td>
+<td>启动脚本内部使用相对路径，但执行时工作目录不正确</td>
+<td>在脚本开头添加 <code>cd $(dirname $0)</code> 切换到脚本所在目录</td>
+</tr>
+<tr>
+<td><code>No such file or directory</code> (启动脚本)</td>
+<td>Jenkins执行命令时的当前目录不是用户家目录</td>
+<td>显式添加 <code>cd ~</code> 切换到用户家目录</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="文件上传问题"><a href="#文件上传问题" class="headerlink" title="文件上传问题"></a>文件上传问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件上传到 <code>/dict/dict/apps/...</code> 目录</td>
+<td>SSH插件将绝对路径误判为相对路径</td>
+<td>使用 <code>removePrefix: &quot;target&quot;</code> 去除本地路径前缀</td>
+</tr>
+<tr>
+<td>文件上传后找不到</td>
+<td>路径拼接错误导致目录嵌套</td>
+<td>使用相对路径 <code>./apps/...</code> 代替绝对路径 <code>/dict/apps/...</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="用户权限问题"><a href="#用户权限问题" class="headerlink" title="用户权限问题"></a>用户权限问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无法登录账号</td>
+<td>设置角色时未给当前使用用户指定角色，导致登录后无法使用</td>
+<td>1.编辑配置文件 vi ~/.jenkins/config.xml<br />2.在文件中搜索 <code>&lt;authorizationStrategy&gt;</code> 这一行<br />3.将其改为原来的即可</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>将<code>&lt;authorizationStrategy class=&quot;com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy&quot;/&gt;</code>替换为<code>&lt;authorizationStrategy class=&quot;hudson.security.AuthorizationStrategy$Unsecured&quot;/&gt;</code></p>
+<h3 id="视图权限配置"><a href="#视图权限配置" class="headerlink" title="视图权限配置"></a>视图权限配置</h3><p><img src="/img/blog/image-20260512155527574.png" alt="image-20260512155527574"></p>
+<hr>
+<h2 id="避坑指南"><a href="#避坑指南" class="headerlink" title="避坑指南"></a>避坑指南</h2><p><strong>SSH插件使用注意事项</strong></p>
+<ul>
+<li>避免在 <code>remoteDirectory</code> 中使用可能引起歧义的路径名</li>
+</ul>
+<ul>
+<li>充分利用 <code>removePrefix</code> 参数控制上传路径结构</li>
+</ul>
+<ul>
+<li>使用 <code>execCommand</code> 进行上传后验证</li>
+</ul>
+<p><strong>Jenkins Pipeline编写建议</strong></p>
+<ul>
+<li>添加详细的日志输出，便于问题排查</li>
+</ul>
+<ul>
+<li>使用变量管理路径，提高脚本可维护性</li>
+</ul>
+<ul>
+<li>添加错误处理和退出码检查</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ZXsupreme.github.io">Xsupreme</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zxsupreme.github.io/post/c0a49e71.html">https://zxsupreme.github.io/post/c0a49e71.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ZXsupreme.github.io" target="_blank">Xsupreme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝（alipay）"/></a><div class="post-qr-code-desc">支付宝（alipay）</div></li><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="微信（wechat）"/></a><div class="post-qr-code-desc">微信（wechat）</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/3f7ca8f.html" title="电脑配置双VPN"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">电脑配置双VPN</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xsupreme</div><div class="author-info__description">计算机小白</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.4399.com/"><i class="iconfont icon-youxishoubing"></i><span>摸鱼</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><p align="center"><img src="https://haiyong.site/img/img-blog.csdnimg.cn/f7384c88956d4378b72e47548e19c9f8.gif" width="50" alt="mao"></p> <p align="center">微信号：Z2682031</p> <p align="center">QQ号：2268103582</p><div class="xpand" style="height:200px;"></div></div></div><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople1.js"></script><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/zdog.dist.js"></script><script id="rendered-js" src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople.js"></script><style>.card-widget.card-announcement {
+margin: 0;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+canvas {
+display: block;
+margin: 0 auto;
+cursor: move;
+}</style><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">操作步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.</span> <span class="toc-text">安装工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">初始配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">Jenkins 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%8F%92%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">重要插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">权限配置（可选）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">5.</span> <span class="toc-text">踩过的坑与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.1.</span> <span class="toc-text">文件路径问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98"><span class="toc-number">5.2.</span> <span class="toc-text">文件上传问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="toc-number">5.3.</span> <span class="toc-text">用户权限问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE"><span class="toc-number">5.4.</span> <span class="toc-text">视图权限配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">6.</span> <span class="toc-text">避坑指南</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/c0a49e71.html" title="Jenkins 部署指南">Jenkins 部署指南</a><time datetime="2026-05-12T06:37:31.000Z" title="发表于 2026-05-12 14:37:31">2026-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3f7ca8f.html" title="电脑配置双VPN">电脑配置双VPN</a><time datetime="2026-05-11T03:03:34.000Z" title="发表于 2026-05-11 11:03:34">2026-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/76a9d2da.html" title="重启Hexo">重启Hexo</a><time datetime="2026-05-09T05:55:08.000Z" title="发表于 2026-05-09 13:55:08">2026-05-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/d3c289c2.html" title="自动化发布机器人（发包侠）部署指南">自动化发布机器人（发包侠）部署指南</a><time datetime="2026-04-30T02:00:00.000Z" title="发表于 2026-04-30 10:00:00">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/c07ae04a.html" title="初识Vue">初识Vue</a><time datetime="2023-09-05T13:07:35.000Z" title="发表于 2023-09-05 21:07:35">2023-09-05</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By Xsupreme</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="/moyu/"><i class="fa fa-gamepad"></i><span>休闲游戏</span></a><a class="rightMenu-item" target="_blank" rel="noopener" href="https://tools.haiyong.site"><i class="fa fa-tools"></i><span>实用工具</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="javascript:changeMouseMode();"><i class="fa fa-mouse"></i><span>切换鼠标右键</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  const disqus_config = function () {
+    this.page.url = 'https://zxsupreme.github.io/post/c0a49e71.html'
+    this.page.identifier = '/post/c0a49e71.html'
+    this.page.title = 'Jenkins 部署指南'
+  }
+
+  const disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addModeChange('disqus', disqusReset)
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><canvas id="universe"></canvas> <script defer src="/js/universe.js"></script> <script src="/js/sun_moon.js" async></script> <div class="aplayer no-destroy" data-id="5183531430" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div> <script type="text/javascript" src="https://cdn1.tianli0.top/npm/jquery@latest/dist/jquery.min.js"></script> <script type="text/javascript" src="/js/rightmenu.js"></script> <script type="text/javascript" src="/js/diytitle.js"></script> <script async src="//at.alicdn.com/t/c/font_4231791_w5kbaal4if.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = 'b16a1fa0e63c46a4b8f28abfb06ae3fe';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.982279,28.19409';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"permalink":"posts/:abbrlink.html","abbrlink":null,"alg":"crc32","rep":"hex"},"log":false});</script></body></html>

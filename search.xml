@@ -169,7 +169,7 @@
       </tags>
   </entry>
   <entry>
-    <title>自动化发布机器人部署指南</title>
+    <title>自动化发布机器人（发包侠）部署指南</title>
     <url>/post/d3c289c2.html</url>
     <content><![CDATA[<blockquote>
 <p>通过本指南，你可以在<strong>无需公网IP</strong>的情况下，让飞书群聊中的机器人接收指令（如 <code>/deploy dev comc</code>），自动触发 Jenkins 构建，并在构建完成后返回 Git 提交记录或错误日志。</p>
@@ -184,7 +184,7 @@
 <hr>
 <h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ol>
 <li><a href="https://zxsupreme.github.io/post/3f7ca8f.html">电脑具备双VPN环境</a></li>
-<li>电脑搭有Jenkins</li>
+<li><a href="http://zxsupreme.github.io/post/c0a49e71.html">电脑搭有Jenkins</a></li>
 </ol>
 <hr>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><div class="table-container">
@@ -422,7 +422,7 @@
   <entry>
     <title>电脑配置双VPN</title>
     <url>/post/3f7ca8f.html</url>
-    <content><![CDATA[<h2 id="背景问题"><a href="#背景问题" class="headerlink" title="背景问题"></a>背景问题</h2><p>在开发过程中，有时需要同时连接两个不同的VPN（例如：VPN A、VPN B）。但某些VPN连接后会篡改系统DNS或覆盖路由表，导致另一个VPN的内网资源无法访问。</p>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在开发过程中，有时需要同时连接两个不同的VPN（例如：VPN A、VPN B）。但某些VPN连接后会篡改系统DNS或覆盖路由表，导致另一个VPN的内网资源无法访问。</p>
 <p>具体现象：</p>
 <ul>
 <li>VPN B（类似SDP类产品）连接后会强制修改Wi-Fi的DNS地址。</li>
@@ -475,7 +475,7 @@
 <li>如果VPN的内网IP段发生变化，需同步更新脚本中的路由条目。</li>
 <li>该脚本仅作为示例框架，<strong>不同公司的内网环境请务必按需调整IP段、域名和虚拟网卡识别逻辑</strong>。</li>
 </ul>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>Q：为什么脚本中需要设置VPN网卡的IP前缀？</strong><br>A：因为不同VPN的虚拟网卡（utun）编号不固定，通过IP地址前缀可以稳定识别哪个网卡属于哪个VPN。你需要先用 <code>ifconfig</code> 查看两个VPN网卡的IP地址，找到它们各自的前两段（例如 <code>10.1.x.x</code> 和 <code>10.2.x.x</code>），然后填入脚本。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><strong>Q：为什么脚本中需要设置VPN网卡的IP前缀？</strong><br>A：因为不同VPN的虚拟网卡（utun）编号不固定，通过IP地址前缀可以稳定识别哪个网卡属于哪个VPN。你需要先用 <code>ifconfig</code> 查看两个VPN网卡的IP地址，找到它们各自的前两段（例如 <code>10.1.x.x</code> 和 <code>10.2.x.x</code>），然后填入脚本。</p>
 <p><strong>Q：执行后仍然无法访问某个内网域名？</strong><br>A：请检查<code>/etc/hosts</code>中是否已添加该域名的内网IP，或者使用<code>nslookup</code>确认域名解析结果是否指向内网IP。某些VPN会强制劫持DNS，建议在脚本的DNS列表中加入内网DNS服务器。</p>
 <p><strong>Q：能否在Windows上使用？</strong><br>A：本脚本专为macOS设计（依赖<code>networksetup</code>、<code>route</code>、<code>ifconfig utun</code>）。Windows可参考思路，使用<code>route add</code>配合<code>netsh interface ip set dns</code>实现。</p>
 <p><strong>Q：为什么必须先连接VPN A再连VPN B？</strong><br>A：这取决于两个VPN的网卡IP分配顺序。脚本通过IP前缀识别，只要连接后两个虚拟网卡的IP前缀不同且稳定，连接顺序可以任意，但你需要在脚本中正确配置对应的前缀。如果顺序导致IP前缀发生变化，请调整连接顺序或修改脚本逻辑。</p>
@@ -483,6 +483,192 @@
       <categories>
         <category>计算机网络</category>
         <category>网络配置</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Jenkins 部署指南</title>
+    <url>/post/c0a49e71.html</url>
+    <content><![CDATA[<blockquote>
+<p>通过本指南可快速部署 Jenkins</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>手动打包部署的步骤非常繁琐，又费时，为此寻找一份解决该问题的解决方案。</p>
+<hr>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="安装工具"><a href="#安装工具" class="headerlink" title="安装工具"></a>安装工具</h3><p>在 macOS 上部署 Jenkins，最推荐使用 Homebrew 进行安装，过程非常简便。</p>
+<ol>
+<li><p><strong>安装 Homebrew</strong></p>
+<p>如果 Mac 尚未安装 Homebrew 包管理器，请先在终端（Terminal）中执行以下命令进行安装</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br><span class="line">```&lt;websource&gt;source_group_web_1&lt;/websource&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>安装 Jenkins</strong></li>
+</ol>
+<p>Jenkins 分为最新版和长期支持版（LTS）。这里使用的是更稳定的 LTS 版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install jenkins-lts</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>启动 Jenkins 服务</strong></li>
+</ol>
+<p>安装完成后，使用 <code>brew services</code> 命令将 Jenkins 作为后台服务启动。这样即使重启电脑，Jenkins 也会自动运行。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew services start jenkins-lts</span><br></pre></td></tr></table></figure>
+<p>如果不希望重启电脑 Jenkins 自动运行，也可运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">jenkins-lts</span><br></pre></td></tr></table></figure>
+<p>其他常用服务管理命令：</p>
+<ul>
+<li><strong>停止服务</strong>: <code>brew services stop jenkins-lts</code></li>
+<li><strong>重启服务</strong>: <code>brew services restart jenkins-lts</code></li>
+<li><strong>查看服务状态</strong>: <code>brew services list</code></li>
+</ul>
+<h3 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h3><ol>
+<li><p><strong>访问 Jenkins</strong><br>服务启动成功后，打开浏览器访问 <code>http://localhost:8080</code>。你将看到解锁 Jenkins 的页面。</p>
+</li>
+<li><p><strong>获取初始管理员密码</strong><br>首次访问需要输入初始管理员密码。在终端中执行以下命令即可查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
+<p>复制终端输出的密码，粘贴到网页的输入框中。</p>
+</li>
+<li><p><strong>完成向导设置</strong></p>
+<ul>
+<li><strong>安装插件</strong>: 点击「安装推荐的插件」，Jenkins 会自动安装 Git、SSH、Pipeline 等常用插件。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>创建管理员账户</strong>: 插件安装完成后，根据提示设置你的管理员用户名、密码和邮箱地址。</p>
+</li>
+<li><p><strong>配置实例 URL</strong>: 保持默认的 <code>http://localhost:8080</code> 即可，然后点击“保存并完成”。</p>
+</li>
+</ul>
+<h3 id="Jenkins-配置"><a href="#Jenkins-配置" class="headerlink" title="Jenkins 配置"></a>Jenkins 配置</h3><ol>
+<li><p>进入 Jenkins 首页，【新建任务】选择【创建文件夹】</p>
+<p><img src="/img/blog/image-20260512151729437.png" alt="image-20260512151729437"></p>
+</li>
+<li><p>在刚刚创建的文件夹中【新建任务】，选择【流水线】，配置流水线的【Pipeline script】</p>
+<p>这里可以让AI生成</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">你是一位拥有10年经验的DevOps专家，精通Jenkins Pipeline (Declarative Pipeline) 编写、Shell脚本编程以及Java应用部署。</span><br><span class="line">任务目标： 编写一个用于在Mac环境下的Jenkins Pipeline脚本，用于构建并部署Java程序到远程Linux服务器。</span><br><span class="line">全局变量定义： 请在脚本顶部定义 `environment` 块，包含以下变量：</span><br><span class="line"></span><br><span class="line">* Git配置：</span><br><span class="line">   * 仓库地址：``</span><br><span class="line">   * 分支：``</span><br><span class="line">   * 凭据ID：`XXX`</span><br><span class="line">* 路径配置：</span><br><span class="line">   * 本地Maven仓库：`<span class="variable">$&#123;env.HOME&#125;</span>/Environment/Maven/apache-maven-3.6.3/dict/dev-hk`</span><br><span class="line">   * 本地打包输出目录：`<span class="variable">$&#123;WORKSPACE&#125;</span>/Environment/Maven/apache-maven-3.6.3/dict/dev-hk`</span><br><span class="line">   * 远程主机：`DICT-mit-region-dev-0002`</span><br><span class="line">   * 远程用户：`dict` (家目录为 `/dict`)</span><br><span class="line">   * 远程应用根目录：`/dict/apps/comc` (注意：这是绝对路径)</span><br><span class="line">   * 远程应用Jar路径：`<span class="variable">$&#123;远程应用根目录&#125;</span>/lib/comc-ext-svc-CMHK-1.0.0-BOOT.jar`</span><br><span class="line">   * 远程备份路径：`<span class="variable">$&#123;远程应用根目录&#125;</span>/backup/`</span><br><span class="line">* 工具版本：JDK 1.8, Maven 3.6.3</span><br><span class="line">执行流程与详细要求： 脚本需包含以下阶段，每个阶段必须有中文注释和详细的 `<span class="built_in">echo</span>` 日志输出：</span><br><span class="line"></span><br><span class="line">1. Checkout (代码拉取)</span><br><span class="line">   * 拉取指定Git仓库和分支的代码。</span><br><span class="line">2. Build (Maven构建)</span><br><span class="line">   * 执行打包命令：`mvn clean install -DskipTests -e -Pnjin,cmhk,dev -Dmaven.repo.local=<span class="variable">$&#123;本地Maven仓库&#125;</span> -DaltDeploymentRepository=local-repo::default::file://<span class="variable">$&#123;本地打包输出目录&#125;</span>`</span><br><span class="line">   * 要求：设置阶段超时时间（例如30分钟）。</span><br><span class="line">3. Deploy (远程部署)</span><br><span class="line">   * 此阶段需通过SSH连接远程主机（用户 `dict`）。</span><br><span class="line">   * 关键路径说明：由于登录用户是 `dict`，其家目录是 `/dict`。在执行所有远程命令和文件传输时，必须使用绝对路径（例如 `/dict/apps/comc/...`），严禁依赖相对路径，防止路径拼接错误。</span><br><span class="line">   * 步骤A：停止服务</span><br><span class="line">      * 执行脚本：`/dict/apps/comc/bin/stop.sh`</span><br><span class="line">      * 设置超时时间（例如5分钟）。</span><br><span class="line">   * 步骤B：备份旧程序</span><br><span class="line">      * 将 `<span class="variable">$&#123;远程应用Jar路径&#125;</span>` 复制到 `<span class="variable">$&#123;远程备份路径&#125;</span>`。</span><br><span class="line">      * 重命名备份文件，追加时间戳（格式：`yyyyMMddHHmm`），例如：`comc-ext-svc-CMHK-1.0.0-BOOT.jar_202604211011`。</span><br><span class="line">      * 日志：输出“正在从 [源路径] 备份到 [目标路径]”。</span><br><span class="line">   * 步骤C：清理旧备份</span><br><span class="line">      * 在 `<span class="variable">$&#123;远程备份路径&#125;</span>` 目录下，只保留最新的5个备份文件，删除其余旧文件。</span><br><span class="line">   * 步骤D：上传新程序</span><br><span class="line">      * 将构建好的Jar包从Jenkins Workspace上传到远程 `/dict/apps/comc/lib/` 目录。</span><br><span class="line">      * 注意：在配置 `sshPublisher` 或 `Publish Over SSH` 插件时，如果 `Remote Directory` 设置为空或 `/dict`，请务必使用 `Remove Prefix` 和正确的 `Source Files` 配合，确保文件最终落在 `/dict/apps/comc/lib/` 而不是 `/dict/dict/...`。建议直接使用绝对路径执行 `scp` 或在 `Exec Command` 中处理移动逻辑。</span><br><span class="line">      * 日志：输出“程序已上传至 [远程目录]”。</span><br><span class="line">   * 步骤E：启动服务</span><br><span class="line">      * 执行脚本：`/dict/apps/comc/bin/start.sh`</span><br><span class="line">      * 设置超时时间。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在刚刚创建的文件夹中【新建视图】，选择【列表视图】（之所以选择这个视图为了后面分权限做准备）</p>
+<p><img src="/img/blog/image-20260512152051148.png" alt="image-20260512152051148"></p>
+</li>
+<li><p>在【列表视图】设置权限</p>
+<ul>
+<li><p><del>一个一个任务勾选</del>【太麻烦了】</p>
+</li>
+<li><p>使用正则表达式匹配</p>
+</li>
+</ul>
+<p>在【编辑视图】中【任务列表】下勾选“使用正则表达式在视图中显示任务”，输入相应的正则表达式即可</p>
+</li>
+<li><p>在【系统管理】-&gt;【全局工具配置】中配置 git、maven、node</p>
+</li>
+<li><p>在【系统管理】-&gt;【系统配置】中配置主机信息（需要插件 Publish Over SSH 支持）</p>
+</li>
+</ol>
+<hr>
+<h2 id="重要插件"><a href="#重要插件" class="headerlink" title="重要插件"></a>重要插件</h2><ul>
+<li><a href="https://plugins.jenkins.io/publish-over-ssh">Publish Over SSH</a>：用于连接远程服务器</li>
+<li><a href="https://plugins.jenkins.io/role-strategy">Role-based Authorization Strategy</a>：用于设置访问权限</li>
+<li><a href="https://plugins.jenkins.io/pipeline-stage-view/?source=post_page-----da3651d19de6---------------------------------------">Stage View</a>：以一目了然的表格形式展示流水线各阶段的执行历史</li>
+<li><a href="https://plugins.origin.jenkins.io/blueocean/">Blue Ocean</a>：提供一套 <strong>全新的、现代化风格的 UI</strong></li>
+</ul>
+<h2 id="权限配置（可选）"><a href="#权限配置（可选）" class="headerlink" title="权限配置（可选）"></a>权限配置（可选）</h2><p>如果需要不同用户访问不同的任务可使用，需要插件 Role-based Authorization Strategy 支持</p>
+<ol>
+<li>进入【系统管理】-&gt;【管理用户】中创建一个新用户</li>
+<li>进入【系统管理】-&gt;【Manage and Assign Roles】-&gt;【Manage Roles】中配置【Global roles】和【item roles】</li>
+<li>进入【系统管理】-&gt;【Manage and Assign Roles】-&gt;【Assign Roles】中为角色配置不同权限</li>
+</ol>
+<p><img src="/img/blog/image-20260512155527574.png" alt="image-20260512155527574"></p>
+<p>注意：这里设置完【Manage Roles】后需要进入【Assign Roles】为管理员配置权限，否则可能导致退出后登录不了</p>
+<h2 id="踩过的坑与解决方案"><a href="#踩过的坑与解决方案" class="headerlink" title="踩过的坑与解决方案"></a>踩过的坑与解决方案</h2><h3 id="文件路径问题"><a href="#文件路径问题" class="headerlink" title="文件路径问题"></a>文件路径问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>./utils/start-app.sh: No such file or directory</code></td>
+<td>启动脚本内部使用相对路径，但执行时工作目录不正确</td>
+<td>在脚本开头添加 <code>cd $(dirname $0)</code> 切换到脚本所在目录</td>
+</tr>
+<tr>
+<td><code>No such file or directory</code> (启动脚本)</td>
+<td>Jenkins执行命令时的当前目录不是用户家目录</td>
+<td>显式添加 <code>cd ~</code> 切换到用户家目录</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="文件上传问题"><a href="#文件上传问题" class="headerlink" title="文件上传问题"></a>文件上传问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件上传到 <code>/dict/dict/apps/...</code> 目录</td>
+<td>SSH插件将绝对路径误判为相对路径</td>
+<td>使用 <code>removePrefix: &quot;target&quot;</code> 去除本地路径前缀</td>
+</tr>
+<tr>
+<td>文件上传后找不到</td>
+<td>路径拼接错误导致目录嵌套</td>
+<td>使用相对路径 <code>./apps/...</code> 代替绝对路径 <code>/dict/apps/...</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="用户权限问题"><a href="#用户权限问题" class="headerlink" title="用户权限问题"></a>用户权限问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>报错现象</th>
+<th>根本原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无法登录账号</td>
+<td>设置角色时未给当前使用用户指定角色，导致登录后无法使用</td>
+<td>1.编辑配置文件 vi ~/.jenkins/config.xml<br />2.在文件中搜索 <code>&lt;authorizationStrategy&gt;</code> 这一行<br />3.将其改为原来的即可</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>将<code>&lt;authorizationStrategy class=&quot;com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy&quot;/&gt;</code>替换为<code>&lt;authorizationStrategy class=&quot;hudson.security.AuthorizationStrategy$Unsecured&quot;/&gt;</code></p>
+<h3 id="视图权限配置"><a href="#视图权限配置" class="headerlink" title="视图权限配置"></a>视图权限配置</h3><p><img src="/img/blog/image-20260512155527574.png" alt="image-20260512155527574"></p>
+<hr>
+<h2 id="避坑指南"><a href="#避坑指南" class="headerlink" title="避坑指南"></a>避坑指南</h2><p><strong>SSH插件使用注意事项</strong></p>
+<ul>
+<li>避免在 <code>remoteDirectory</code> 中使用可能引起歧义的路径名</li>
+</ul>
+<ul>
+<li>充分利用 <code>removePrefix</code> 参数控制上传路径结构</li>
+</ul>
+<ul>
+<li>使用 <code>execCommand</code> 进行上传后验证</li>
+</ul>
+<p><strong>Jenkins Pipeline编写建议</strong></p>
+<ul>
+<li>添加详细的日志输出，便于问题排查</li>
+</ul>
+<ul>
+<li>使用变量管理路径，提高脚本可维护性</li>
+</ul>
+<ul>
+<li>添加错误处理和退出码检查</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+        <category>运维</category>
+        <category>Jenkins</category>
       </categories>
   </entry>
 </search>
